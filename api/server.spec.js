@@ -3,8 +3,7 @@ const server = require("./server.js");
 const db = require("../database/dbConfig.js");
 
 describe("SERVER", () => {
-
-  // resets database when re-running ALL tests  
+  // resets database when re-running ALL tests
   beforeAll(async () => {
     await db("games").truncate();
   });
@@ -89,6 +88,31 @@ describe("SERVER", () => {
         .post("/games")
         .send(newGame);
       expect(response.body).toBeDefined();
+    });
+  });
+
+  // ==== STRETCH
+  describe("GET /games/:id", () => {
+    it("should return 200 OK (id: 1)", async () => {
+      const response = await request(server).get("/games/1");
+      expect(response.status).toBe(200);
+    });
+
+    it("should return 404 NOT FOUND (id: 400)", async () => {
+      const response = await request(server).get("/games/400");
+      expect(response.status).toBe(404);
+    });
+  });
+
+  describe("DELETE /games/:id", () => {
+    it("should return 204 OK (id: 2)", async () => {
+      const response = await request(server).delete("/games/2");
+      expect(response.status).toBe(204);
+    });
+
+    it("should return 404 NOT FOUND (id:33)", async () => {
+      const response = await request(server).delete("/games/33");
+      expect(response.status).toBe(404);
     });
   });
 });
