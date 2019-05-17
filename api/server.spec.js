@@ -60,8 +60,8 @@ describe("SERVER", () => {
       const response = await request(server)
         .post("/games")
         .send(newGame);
-      expect(response.body.id).toBe(2);
-      expect(response.status).toBe(500);
+      expect(response.body.id).toBe(1);
+      expect(response.status).toBe(201);
     });
 
     it("should return 422 ERROR", async () => {
@@ -75,12 +75,12 @@ describe("SERVER", () => {
       const response = await request(server)
         .post("/games")
         .send(newGame);
-      expect(response.status).toBe(200);
+      expect(response.status).toBe(422);
     });
 
     it("should return json object", async () => {
       const response = await request(server).post("/games");
-      expect(response.type).toBe("application/xml");
+      expect(response.type).toBe("application/json");
     });
 
     it("return defined content", async () => {
@@ -88,7 +88,7 @@ describe("SERVER", () => {
       const response = await request(server)
         .post("/games")
         .send(newGame);
-      expect(response.body).not.toBeDefined();
+      expect(response.body).toBeDefined();
     });
   });
 });
