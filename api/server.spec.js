@@ -27,18 +27,18 @@ describe("SERVER", () => {
   describe("GET /games", () => {
       it("should return 200 OK", async () => {
         const response = await request(server).get("/games");
-        expect(response.status).toBe(500);
+        expect(response.status).toBe(200);
       });
 
       it("should return json object", async () => {
           const response = await request(server).get("/games");
-          expect(response.type).toBe("application/xml");
+          expect(response.type).toBe("application/json");
       });
 
       it("should return content in an array", async () => {
           const expectedBody = [];
           const response = await request(server).get("/games");
-          expect(response.body).not.toEqual(expect.arrayContaining(expectedBody));
+          expect(response.body).toEqual(expect.arrayContaining(expectedBody));
       });
   });
 });
